@@ -1,0 +1,14 @@
+main_df = pd.DataFrame()
+
+directory_list = list()
+for root, dirs, files in os.walk("Stocks By Sector", topdown=False):
+    for name in files:
+        directory_list.append(os.path.join(root, name))
+
+
+for filepath in directory_list:
+    temp_df = pd.read_csv(filepath)
+    symbol = filepath[filepath.rindex('\\') + 1:len(filepath) - 4]
+    massive_df = pd.concat([massive_df, temp_df], ignore_index=True)
+
+# After this portion is finished running, all the data from all the csv files will be in a single dataframe.
